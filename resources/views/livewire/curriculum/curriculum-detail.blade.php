@@ -116,7 +116,10 @@
         </div>
     </div>
 
-    @if ($curriculum['user_id'] && auth()->user()->id)
+
+
+    {{-- Configuration --}}
+    @if ($curriculum['user_id'] == auth()->user()->id)
         <div class="p-4 mt-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg text-slate-800 dark:text-slate-200">
             <div class="max-w-full">
                 <div class="flex justify-between pb-2 font-extrabold border-b">

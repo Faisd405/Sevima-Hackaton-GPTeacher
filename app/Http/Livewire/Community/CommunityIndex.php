@@ -33,12 +33,13 @@ class CommunityIndex extends Component
     public function getCurriculumsProperty()
     {
         $data = Curriculum::where('status', 1)
+            ->with('user')
             ->withCount('favorite')
             ->orderBy('favorite_count', 'desc');
 
         $data = $this->searchHelper($data, $this->paramsCurriculum['search'], ['prompt']);
 
-        $data = $data->paginate($paramsCurriculum['limit'] ?? 10);
+        $data = $data->paginate($this->paramsCurriculum['limit'] ?? 10);
 
         return $data;
     }
@@ -46,13 +47,24 @@ class CommunityIndex extends Component
     public function getQuestionsProperty()
     {
         $data = Question::where('status', 1)
+            ->with('user')
             ->withCount('favorite')
             ->orderBy('favorite_count', 'desc');
 
         $data = $this->searchHelper($data, $this->paramsQuestion['search'], ['prompt']);
 
-        $data = $data->paginate($paramsQuestion['limit'] ?? 10);
+        $data = $data->paginate($this->paramsQuestion['limit'] ?? 10);
 
         return $data;
+    }
+
+    public function loadMoreCurriculum()
+    {
+        $this->paramsCurriculum['limit'] += 10;
+    }
+
+    public function loadMoreQuestion()
+    {
+        $this->paramsQuestion['limit'] += 10;
     }
 }

@@ -46,7 +46,7 @@
                                 <p class="text-xs font-semibold">
                                     {{ count($curriculum['curriculumDetails']) }} Materials
                                 </p>
-                                <p class="mt-4 text-sm">
+                                <p class="mt-4 overflow-hidden text-sm text-ellipsis">
                                     {!! str()->limit($curriculum['description'], 75) !!}
                                 </p>
                             </div>

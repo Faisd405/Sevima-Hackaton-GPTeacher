@@ -43,13 +43,40 @@
                         {{ $question['favorite_count'] }} Favorites
                     </span>
                 </div>
-
-
             </div>
         </div>
     </div>
 
-    @if ($question['user_id'] && auth()->user()->id)
+    {{-- Comment --}}
+    {{-- <div class="p-4 mt-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg text-slate-800 dark:text-slate-200">
+        <div class="chat chat-start">
+            <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+            </div>
+            <div class="chat-header">
+                Obi-Wan Kenobi
+                <time class="text-xs opacity-50">12:45</time>
+            </div>
+            <div class="chat-bubble">You were the Chosen One!</div>
+        </div>
+        <div class="chat chat-end">
+            <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                </div>
+            </div>
+            <div class="chat-header">
+                Anakin
+                <time class="text-xs opacity-50">12:46</time>
+            </div>
+            <div class="chat-bubble">I hate you!</div>
+        </div>
+    </div> --}}
+
+    {{-- Configuration --}}
+    @if ($question['user_id'] == auth()->user()->id)
         <div class="p-4 mt-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg text-slate-800 dark:text-slate-200">
             <div class="max-w-full">
                 <div class="flex justify-between pb-2 font-extrabold border-b">

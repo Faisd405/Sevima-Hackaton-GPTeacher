@@ -20,21 +20,12 @@
                     </h2>
                 </div>
 
-                <div class="flex items-end w-full mt-2 mb-2 mr-2 space-x-4 sm:w-auto text-slate-800 dark:text-slate-200">
+                <div
+                    class="flex items-end w-full mt-2 mb-2 mr-2 space-x-4 sm:w-auto text-slate-800 dark:text-slate-200">
                     <div>
                         <x-input.input-label for="search" value="Search" class="mr-2 text-sm" />
                         <x-input.text-input id="search" name="search" type="text" class="h-8 text-xs"
                             wire:model.lazy='paramsCurriculum.search' />
-                    </div>
-                    <div>
-                        <x-input.input-label for="limit" value="Limit" class="mr-2 text-sm" />
-                        <x-input.select-input id="limit" name="limit" type="text" class="h-8 text-xs"
-                            wire:model.lazy='paramsCurriculum.limit' :selected="$request['limit'] ?? 10">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="50">100</option>
-                        </x-input.select-input>
                     </div>
                 </div>
 
@@ -50,8 +41,18 @@
                                     <p class="text-xs font-semibold">
                                         {{ count($curriculum['curriculumDetails']) }} Materials
                                     </p>
-                                    <p class="mt-4 text-sm">
+                                    <p class="mt-4 overflow-hidden text-sm text-ellipsis">
                                         {!! str()->limit($curriculum['description'], 75) !!}
+                                    </p>
+                                    <p class="flex items-end justify-between mt-4 text-xs font-semibold">
+                                        <span class="text-xs font-semibold">
+                                            {{ $curriculum->favorite_count ?? 0 }} Favorites
+                                        </span>
+
+                                        <span class="text-xs font-semibold">
+                                            {{ $curriculum->user->name }} -
+                                            {{ $curriculum->created_at->diffForHumans() }}
+                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -62,10 +63,13 @@
                                 </p>
                             </div>
                         @endforelse
-                    </div>
-
-                    <div class="mt-4">
-                        {{ $curriculums->links('vendor.pagination.custom') }}
+                        @if ($curriculums->hasMorePages())
+                            <div class="flex flex-col items-center justify-center w-full col-span-4">
+                                <button wire:click="loadMoreCurriculum" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500">
+                                    Load More
+                                </button>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -76,21 +80,12 @@
                     </h2>
                 </div>
 
-                <div class="flex items-end w-full mt-2 mb-2 mr-2 space-x-4 sm:w-auto text-slate-800 dark:text-slate-200">
+                <div
+                    class="flex items-end w-full mt-2 mb-2 mr-2 space-x-4 sm:w-auto text-slate-800 dark:text-slate-200">
                     <div>
                         <x-input.input-label for="search" value="Search" class="mr-2 text-sm" />
                         <x-input.text-input id="search" name="search" type="text" class="h-8 text-xs"
                             wire:model.lazy='paramsQuestion.search' />
-                    </div>
-                    <div>
-                        <x-input.input-label for="limit" value="Limit" class="mr-2 text-sm" />
-                        <x-input.select-input id="limit" name="limit" type="text" class="h-8 text-xs"
-                            wire:model.lazy='paramsQuestion.limit' :selected="$request['limit'] ?? 10">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="50">100</option>
-                        </x-input.select-input>
                     </div>
                 </div>
 
@@ -102,8 +97,16 @@
                                 <h4 class="text-lg font-bold">
                                     {{ $question->prompt }}
                                 </h4>
-                                <p class="mt-4 text-sm">
+                                <p class="mt-4 overflow-hidden text-sm text-ellipsis">
                                     {!! str()->limit($question->response, 75) !!}
+                                </p>
+                                <p class="flex items-end justify-between mt-4 text-xs font-semibold">
+                                    <span class="text-xs font-semibold">
+                                        {{ $curriculum->favorite_count ?? 0 }} Favorites
+                                    </span>
+                                    <span class="text-xs font-semibold">
+                                        {{ $question->user->name }} - {{ $question->created_at->diffForHumans() }}
+                                    </span>
                                 </p>
                             </div>
                         </a>
@@ -114,10 +117,13 @@
                             </p>
                         </div>
                     @endforelse
-                </div>
-
-                <div class="mt-4">
-                    {{ $questions->links('vendor.pagination.custom') }}
+                    @if ($questions->hasMorePages())
+                        <div class="flex flex-col items-center justify-center w-full col-span-4">
+                            <button wire:click="loadMoreQuestion" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500">
+                                Load More
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

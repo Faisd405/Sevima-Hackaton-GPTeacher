@@ -48,7 +48,7 @@
                                 <p class="text-xs font-semibold">
                                     {{ count($curriculum['curriculumDetails']) }} Materials
                                 </p>
-                                <p class="mt-4 text-sm">
+                                <p class="mt-4 text-sm overflow-hidden text-ellipsis">
                                     {!! str()->limit($curriculum['description'], 75) !!}
                                 </p>
                             </div>
@@ -77,7 +77,7 @@
                                 <h4 class="text-lg font-bold">
                                     {{ $question->prompt }}
                                 </h4>
-                                <p class="mt-4 text-sm">
+                                <p class="mt-4 text-sm overflow-hidden text-ellipsis">
                                     {!! str()->limit($question->response, 75) !!}
                                 </p>
                             </div>
