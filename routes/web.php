@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Livewire\Community\CommunityIndex;
 use App\Http\Livewire\Curriculum\CurriculumDetail;
@@ -27,17 +28,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', Dashboard::class)->name('dashboard');
+    Route::get('/', Dashboard::class)->name('dashboard');
     Route::get('/community', CommunityIndex::class)->name('community');
 
     Route::get('/profile', ProfileIndex::class)->name('profile.edit');
 
     Route::group(['prefix' => 'curriculum' , 'as' => 'curriculum.'], function () {
+        Route::get('/{id}/pdf', [CurriculumController::class, 'generatePDF'])->name('pdf');
+
         Route::get('/', CurriculumIndex::class)->name('index');
         Route::get('/create', CurriculumForm::class)->name('create');
         Route::get('/{id}/show', CurriculumDetail::class)->name('show');
@@ -48,6 +47,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', QuestionForm::class)->name('create');
         Route::get('/{id}/show', QuestionDetail::class)->name('show');
     });
+
 });
 
 require __DIR__ . '/auth.php';

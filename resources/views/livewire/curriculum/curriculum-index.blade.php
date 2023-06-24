@@ -3,7 +3,7 @@
         <div class="flex justify-between">
             <x-header.title backLinkName="Home" backLink="{{ route('dashboard') }}">
             </x-header.title>
-            <x-header.breadcrumbs :list="[['name' => 'Home', 'link' => '/dashboard'], 'Curriculum']" />
+            <x-header.breadcrumbs :list="[['name' => 'Home', 'link' => '/'], 'Curriculum']" />
         </div>
 
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">

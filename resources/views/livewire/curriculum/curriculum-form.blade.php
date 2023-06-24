@@ -3,7 +3,7 @@
         <x-header.title backLinkName="Home" backLink="{{ route('dashboard') }}">
             Create Curriculum
         </x-header.title>
-        <x-header.breadcrumbs :list="[['name' => 'Home', 'link' => '/dashboard'], 'Create Curriculum']" />
+        <x-header.breadcrumbs :list="[['name' => 'Home', 'link' => '/'], 'Create Curriculum']" />
     </div>
 
     <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">

@@ -3,14 +3,19 @@
         <x-header.title backLinkName="Home" backLink="{{ route('dashboard') }}">
             Curriculum Detail
         </x-header.title>
-        <x-header.breadcrumbs :list="[['name' => 'Home', 'link' => '/dashboard'], 'Curriculum Detail']" />
+        <x-header.breadcrumbs :list="[['name' => 'Home', 'link' => '/'], 'Curriculum Detail']" />
     </div>
 
     <div class="p-4 mt-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg text-slate-800 dark:text-slate-200">
         <div class="max-w-full">
-            <h4 class="pb-2 text-xl font-extrabold border-b">
-                {{ $curriculum['prompt'] }}
-            </h4>
+            <div class="flex justify-between pb-2 border-b">
+                <h4 class="text-xl font-extrabold ">
+                    {{ $curriculum['prompt'] }}
+                </h4>
+                <a class="btn-primary-custom" href="{{ route('curriculum.pdf', $curriculum['id']) }}" target="blank">
+                    Generate PDF
+                </a>
+            </div>
 
             <div class="mt-2">
                 {!! $curriculum['description'] !!}
@@ -53,7 +58,8 @@
             </h4>
 
             <details class="border-b collapse md:hidden">
-                <summary class="text-lg font-medium text-center collapse-title hover:bg-slate-200 dark:hover:bg-gray-700">
+                <summary
+                    class="text-lg font-medium text-center collapse-title hover:bg-slate-200 dark:hover:bg-gray-700">
                     {{ 'Select Curriculum Detail' }}
                 </summary>
                 <div class="collapse-content">
