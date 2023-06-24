@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prompt_curriculum', function (Blueprint $table) {
+        Schema::create('prompt_curriculums', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('user_id');
             $table->string('prompt');
 
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

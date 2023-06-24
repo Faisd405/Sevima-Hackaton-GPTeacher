@@ -16,8 +16,8 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />
+                    <a href="{{ route('dashboard') }}" class="flex items-center font-semibold text-slate-800 dark:text-slate-50">
+                        {{ config('custom.custom.website_name') }}
                     </a>
                 </div>
             </div>
