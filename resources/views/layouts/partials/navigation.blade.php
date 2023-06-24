@@ -56,7 +56,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <div class="px-4 py-2 pb-4 bg-slate-200 dark:bg-slate-600 bg-opacity-80">
+                        <div class="px-4 py-2 pb-4 overflow-x-hidden bg-slate-200 dark:bg-slate-600 bg-opacity-80">
                             <div class="text-base font-semibold text-gray-800 dark:text-gray-50">{{ Auth::user()->name }}</div>
                             <div class="text-sm font-medium text-gray-600 dark:text-gray-100">{{ Auth::user()->email }}</div>
                         </div>
