@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    /* Button */
+    .btn-primary-custom {
+        @apply text-white py-1.5 px-4 hover:shadow-lg bg-blue-500 rounded-lg shadow-lg hover:bg-blue-800 dark:bg-blue-700 dark:hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-secondary-custom {
+        @apply text-white py-1.5 px-4 hover:shadow-lg bg-gray-500 rounded-lg shadow-lg hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-success-custom {
+        @apply text-white py-1.5 px-4 hover:shadow-lg bg-green-500 rounded-lg shadow-lg hover:bg-green-800 dark:bg-green-700 dark:hover:bg-green-800 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-warning-custom {
+        @apply text-white py-1.5 px-4 hover:shadow-lg bg-yellow-500 rounded-lg shadow-lg hover:bg-yellow-800 dark:bg-yellow-700 dark:hover:bg-yellow-800 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-danger-custom {
+        @apply text-white py-1.5 px-4 hover:shadow-lg bg-red-500 rounded-lg shadow-lg hover:bg-red-800 dark:bg-red-700 dark:hover:bg-red-800 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .btn-info-custom {
+        @apply text-white py-1.5 px-4 hover:shadow-lg bg-indigo-500 rounded-lg shadow-lg hover:bg-indigo-800 dark:bg-indigo-700 dark:hover:bg-indigo-800 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    /* Simple Scrollbar */
+    /* CUSTOM SIMPLEBAR */
+    .simplebar-track.simplebar-vertical {
+        @apply !w-[6px];
+    }
+    .simplebar-scrollbar {
+        @apply before:!top-[1px] before:!right-[1px] before:!left-[1px] before:!bottom-[1px] before:bg-zinc-400/80;
+    }
+    .simplebar-track.simplebar-horizontal {
+        @apply !h-[6px];
+    }
+}
