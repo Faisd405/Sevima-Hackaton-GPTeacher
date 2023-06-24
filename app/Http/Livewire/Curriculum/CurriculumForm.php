@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Curriculum;
 
+use App\Jobs\GenerateCurriculumContent;
 use App\Models\Curriculum;
 use App\Models\CurriculumDetail;
 use App\Traits\WithOpenAPI;
+use Illuminate\Support\Facades\Bus;
 use Livewire\Component;
 
 class CurriculumForm extends Component
@@ -76,20 +78,25 @@ class CurriculumForm extends Component
             'user_id' => auth()->id(),
         ]);
 
+        $batch = Bus::batch([])
+            ->name('Generate Curriculum Content')
+            ->dispatch();
+
+        $curriculumDetail = [];
         foreach ($this->curriculumData['curriculum'] as $key => $value) {
-            CurriculumDetail::create([
+            $curriculumDetail = CurriculumDetail::create([
                 'curriculum_id' => $curriculum->id,
                 'title' => $value,
                 'order' => $key + 1,
             ]);
+
+            $batch->add(new GenerateCurriculumContent($curriculumDetail['id']));
         }
 
         $this->dispatchBrowserEvent('toaster', [
             'type' => 'success',
             'message' => 'Saved!',
         ]);
-
-        $this->dispatchBrowserEvent('finished');
 
         $this->reset();
     }

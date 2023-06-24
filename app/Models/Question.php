@@ -13,11 +13,22 @@ class Question extends Model
         'prompt',
         'response',
         'user_id',
-        'language'
+        'language',
+        'status',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function favorite()
+    {
+        return $this->morphMany(FavoriteContent::class, 'content');
+    }
+
+    public function comment()
+    {
+        return $this->morphMany(CommentContent::class, 'content');
     }
 }

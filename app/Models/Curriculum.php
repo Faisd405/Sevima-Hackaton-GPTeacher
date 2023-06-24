@@ -15,7 +15,8 @@ class Curriculum extends Model
         'user_id',
         'prompt',
         'description',
-        'language'
+        'language',
+        'status'
     ];
 
     public function user()
@@ -26,5 +27,15 @@ class Curriculum extends Model
     public function curriculumDetails()
     {
         return $this->hasMany(CurriculumDetail::class);
+    }
+
+    public function favorite()
+    {
+        return $this->morphMany(FavoriteContent::class, 'content');
+    }
+
+    public function comment()
+    {
+        return $this->morphMany(CommentContent::class, 'content');
     }
 }

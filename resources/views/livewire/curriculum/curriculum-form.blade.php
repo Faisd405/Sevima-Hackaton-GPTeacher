@@ -9,23 +9,25 @@
     <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
         <div class="max-w-full">
             <form class="space-y-6" @submit.prevent="generateForm">
-                <div class="mx-auto">
-                    <x-input.input-label class="text-xl font-extrabold" for="prompt"
-                        value="What You Want to learn ?" />
-                    {{-- disabled when loading is true --}}
-                    <x-input.text-input id="prompt" name="prompt" wire:model.lazy='prompt' type="text"
-                        x-bind:disabled="loading" required placeholder="Web Programming"
-                        class="block w-full mt-1" />
-                    <x-input.input-error :messages="$errors->get('prompt')" class="mt-2" />
-                </div>
+                <div class="flex justify-between gap-4">
+                    <div class="w-full mx-auto basis-2/3">
+                        <x-input.input-label class="text-xl font-extrabold" for="prompt"
+                            value="What You Want to learn ?" />
+                        {{-- disabled when loading is true --}}
+                        <x-input.text-input id="prompt" name="prompt" wire:model.lazy='prompt' type="text"
+                            x-bind:disabled="loading" required placeholder="Web Programming"
+                            class="block w-full mt-1" />
+                        <x-input.input-error :messages="$errors->get('prompt')" class="mt-2" />
+                    </div>
 
-                <div class="mx-auto">
-                    <x-input.input-label class="text-xl font-extrabold" for="language"
-                        value="What language you want to use ?" />
-                    {{-- disabled when loading is true --}}
-                    <x-input.text-input id="language" name="language" wire:model.lazy='language' type="text"
-                        x-bind:disabled="loading" placeholder="English (Default)"
-                        class="block w-full mt-1" />
+                    <div class="w-full mx-auto basis-1/3">
+                        <x-input.input-label class="text-xl font-extrabold" for="language"
+                            value="What language you want to use ?" />
+                        {{-- disabled when loading is true --}}
+                        <x-input.text-input id="language" name="language" wire:model.lazy='language' type="text"
+                            x-bind:disabled="loading" placeholder="English (Default)"
+                            class="block w-full mt-1" />
+                    </div>
                 </div>
 
                 <div class="flex items-center justify-end gap-4">

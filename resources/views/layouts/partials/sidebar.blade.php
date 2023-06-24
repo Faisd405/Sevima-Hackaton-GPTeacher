@@ -32,16 +32,6 @@
                         Community
                     </x-responsive-nav-link>
                 </div>
-                <div>
-                    <div class="py-1 my-2 text-center border-t border-b text-slate-800 dark:text-slate-50">
-                        Subjects
-                    </div>
-                </div>
-                <div>
-                    <x-responsive-nav-link>
-                        1. Crud Example
-                    </x-responsive-nav-link>
-                </div>
             </div>
         </div>
     </div>

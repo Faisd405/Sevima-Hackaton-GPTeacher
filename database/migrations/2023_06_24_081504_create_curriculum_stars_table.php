@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('curriculums', function (Blueprint $table) {
+        Schema::create('curriculum_stars', function (Blueprint $table) {
             $table->id();
 
+            $table->unsignedBigInteger('curriculum_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('prompt');
-            $table->text('description');
-            $table->string('language')->default('english');
-            $table->tinyInteger('status')->default(0)->comment('0: private, 1: published');
 
             $table->timestamps();
 
+            $table->foreign('curriculum_id')->references('id')->on('curriculums');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('curriculums');
+        Schema::dropIfExists('curriculum_stars');
     }
 };

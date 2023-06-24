@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('prompt');
             $table->longText('response');
             $table->string('language')->default('english');
+            $table->tinyInteger('status')->default(0)->comment('0: private, 1: published');
 
             $table->timestamps();
 

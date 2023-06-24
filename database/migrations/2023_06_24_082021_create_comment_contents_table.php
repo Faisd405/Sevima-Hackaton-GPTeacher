@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('curriculums', function (Blueprint $table) {
+        Schema::create('comment_contents', function (Blueprint $table) {
             $table->id();
 
+            $table->morphs('content'); // (content_type, content_id
             $table->unsignedBigInteger('user_id');
-            $table->string('prompt');
-            $table->text('description');
-            $table->string('language')->default('english');
-            $table->tinyInteger('status')->default(0)->comment('0: private, 1: published');
+            $table->text('comment');
 
             $table->timestamps();
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('curriculums');
+        Schema::dropIfExists('comment_contents');
     }
 };

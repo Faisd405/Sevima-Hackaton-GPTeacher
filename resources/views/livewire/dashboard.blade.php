@@ -15,7 +15,7 @@
                                     {{ auth()->user()->name }}
                                 </h4>
                                 <p class="text-sm font-semibold">
-                                    0 Curriculum
+                                    {{ count($curriculums) }} Curriculum - {{ count($questions) }} Question
                                 </p>
                             </div>
                         </div>
