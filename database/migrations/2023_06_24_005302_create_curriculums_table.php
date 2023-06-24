@@ -15,14 +15,13 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('prompt_curriculum_id');
-
-            $table->string('title');
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('prompt_curriculum_id')->references('id')->on('prompt_curriculums');
+            $table->string('prompt');
+            $table->text('description');
+            $table->string('language')->default('english');
 
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -7,16 +7,16 @@ use Livewire\Component;
 
 class QuestionDetail extends Component
 {
-    public $question;
+    public $questionId;
 
     public function mount($id)
     {
-        $this->question = $this->getQuestionProperty($id);
+        $this->questionId = $id;
     }
 
     public function render()
     {
-        $data['question'] = $this->question;
+        $data['question'] = $this->getQuestionProperty($this->questionId);
 
         return view('livewire.question.question-detail', $data)->extends('layouts.app');
     }

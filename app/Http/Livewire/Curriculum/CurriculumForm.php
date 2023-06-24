@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Curriculum;
 
+use App\Models\Curriculum;
+use App\Models\CurriculumDetail;
 use App\Traits\WithOpenAPI;
 use Livewire\Component;
 
@@ -16,6 +18,8 @@ class CurriculumForm extends Component
     public $titlePrompt;
 
     public $response;
+
+    public $curriculumData;
 
     public $loading = false;
 
@@ -39,8 +43,10 @@ class CurriculumForm extends Component
         $language = $this->language ?? 'english';
 
         $prompt = "provide curriculum about {$this->prompt} and materials in each curriculum
-        with a list structure just numbers and title without content with {$language} language,
+        with a description about {$this->prompt} and list structure just numbers and title without content.
+        explain with {$language} language.
         example:
+        description: curriculum description \n
         1. curriculum 1 \n
         2. curriculum 2 \n
         3. curriculum 3";
@@ -50,7 +56,8 @@ class CurriculumForm extends Component
         $this->titlePrompt = $this->prompt;
         $this->response = $openApi;
 
-        $curriculum = $this->makeArray($this->response);
+        $curriculumData = $this->makeArray($this->response);
+        $this->curriculumData = $curriculumData;
 
         $this->dispatchBrowserEvent('toaster', [
             'type' => 'success',
@@ -60,9 +67,42 @@ class CurriculumForm extends Component
         $this->dispatchBrowserEvent('finished');
     }
 
-    public function makeArray($curriculumText)
+    public function saveCurriculum()
+    {
+        $curriculum = Curriculum::create([
+            'prompt' => $this->titlePrompt,
+            'description' => $this->curriculumData['description'],
+            'language' => $this->language ?? 'english',
+            'user_id' => auth()->id(),
+        ]);
+
+        foreach ($this->curriculumData['curriculum'] as $key => $value) {
+            CurriculumDetail::create([
+                'curriculum_id' => $curriculum->id,
+                'title' => $value,
+                'order' => $key + 1,
+            ]);
+        }
+
+        $this->dispatchBrowserEvent('toaster', [
+            'type' => 'success',
+            'message' => 'Saved!',
+        ]);
+
+        $this->dispatchBrowserEvent('finished');
+
+        $this->reset();
+    }
+
+    private function makeArray($curriculumText)
     {
         $curriculum = explode("\n", $curriculumText);
+
+        // get description
+        $description = $this->getDescription($curriculumText);
+
+        // remove description text
+        unset($curriculum[0]);
 
         // filtering
         $curriculum = array_map(function ($item) {
@@ -84,12 +124,31 @@ class CurriculumForm extends Component
             return $item;
         }, $curriculum);
 
+        // remove empty array
+        $curriculum = array_filter($curriculum);
+
         // Fix array index
         $curriculum = array_values($curriculum);
 
-        $curriculum = array_filter($curriculum);
-
-        return $curriculum;
+        return [
+            'description' => $description,
+            'curriculum' => $curriculum,
+        ];
     }
 
+    private function getDescription($curriculumText)
+    {
+        $curriculum = explode("\n", $curriculumText);
+
+        // get description
+        $description = $curriculum[0];
+
+        // remove description or Description text with preg_match
+        $pattern = '/^(description|Description)\:\s+/m';
+        $description = preg_replace($pattern, '', $description);
+        $brLine = '<br />';
+        $description = str_replace($brLine, '', $description);
+
+        return $description;
+    }
 }

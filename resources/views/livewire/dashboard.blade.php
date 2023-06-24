@@ -32,55 +32,59 @@
                 </div>
             </div>
 
-            <div class="mb-3">
-                <div class="mt-8">
-                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-50">
-                        My Curriculum
-                    </h2>
-                </div>
+            @if (count($curriculums))
+                <div class="mb-3">
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-50">
+                            My Curriculum
+                        </h2>
+                    </div>
 
-                <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-4">
-                    @for ($i = 0; $i < 4; $i++)
-                        <div
-                            class="overflow-hidden transition duration-200 bg-white shadow-sm dark:bg-gray-800 sm:rounded-xl sm:shadow-lg dark:shadow-gray-700 hover:bg-slate-100 hover:scale-110 dark:hover:bg-slate-700">
-                            <div class="p-6 text-gray-900 dark:text-gray-100">
-                                <h4 class="text-lg font-bold">
-                                    Curriculum {{ $i + 1 }}
-                                </h4>
-                                <p class="text-xs font-semibold">
-                                    0 Subjects
-                                </p>
-                                <p class="mt-4 text-sm">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.
-                                </p>
-                            </div>
-                        </div>
-                    @endfor
+                    <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-4">
+                        @foreach ($curriculums as $curriculum)
+                            <a href="{{ route('curriculum.show', $curriculum['id']) }}"
+                                class="overflow-hidden transition duration-200 bg-white shadow-sm dark:bg-gray-800 sm:rounded-xl sm:shadow-lg dark:shadow-gray-700 hover:bg-slate-100 hover:scale-110 dark:hover:bg-slate-700">
+                                <div class="p-6 text-gray-900 dark:text-gray-100">
+                                    <h4 class="text-lg font-bold">
+                                        {{ $curriculum['prompt'] }}
+                                    </h4>
+                                    <p class="text-xs font-semibold">
+                                        {{ count($curriculum['curriculumDetails']) }} Materials
+                                    </p>
+                                    <p class="mt-4 text-sm">
+                                        {!! str()->limit($curriculum['description'], 75) !!}
+                                    </p>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <div class="mt-8">
-                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-50">
-                        My Question
-                    </h2>
-                </div>
+            @endif
+            @if (count($questions))
+                <div class="mb-3">
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-50">
+                            My Question
+                        </h2>
+                    </div>
 
-                <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-4">
-                    @foreach ($questions as $question)
-                        <a href="{{ route('question.show', $question->id) }}"
-                            class="overflow-hidden transition duration-200 bg-white shadow-sm dark:bg-gray-800 sm:rounded-xl sm:shadow-lg dark:shadow-gray-700 hover:bg-slate-100 hover:scale-110 dark:hover:bg-slate-700">
-                            <div class="p-6 text-gray-900 dark:text-gray-100">
-                                <h4 class="text-lg font-bold">
-                                    {{ $question->prompt }}
-                                </h4>
-                                <p class="mt-4 text-sm">
-                                    {!! str()->limit($question->response, 75) !!}
-                                </p>
-                            </div>
-                        </a>
-                    @endforeach
+                    <div class="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-4">
+                        @foreach ($questions as $question)
+                            <a href="{{ route('question.show', $question->id) }}"
+                                class="overflow-hidden transition duration-200 bg-white shadow-sm dark:bg-gray-800 sm:rounded-xl sm:shadow-lg dark:shadow-gray-700 hover:bg-slate-100 hover:scale-110 dark:hover:bg-slate-700">
+                                <div class="p-6 text-gray-900 dark:text-gray-100">
+                                    <h4 class="text-lg font-bold">
+                                        {{ $question->prompt }}
+                                    </h4>
+                                    <p class="mt-4 text-sm">
+                                        {!! str()->limit($question->response, 75) !!}
+                                    </p>
+                                </div>
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </div>

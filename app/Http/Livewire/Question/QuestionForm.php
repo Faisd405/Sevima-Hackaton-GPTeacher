@@ -16,6 +16,8 @@ class QuestionForm extends Component
 
     public $response;
 
+    public $language;
+
     public $loading = false;
 
     protected $rules = [
@@ -35,7 +37,9 @@ class QuestionForm extends Component
     {
         $this->validate();
 
-        $prompt = "i want to ask about {$this->prompt} and the answer is";
+        $language = $this->language ?? 'english';
+
+        $prompt = "i want to ask about {$this->prompt}, explain with {$language} language and the answer is";
 
         $openApi = $this->generatePromptOpenAPI($prompt);
 
@@ -56,6 +60,7 @@ class QuestionForm extends Component
             'prompt' => $this->titlePrompt,
             'response' => $this->response,
             'user_id' => auth()->id(),
+            'language' => $this->language ?? 'english',
         ]);
 
         $this->dispatchBrowserEvent('toaster', [

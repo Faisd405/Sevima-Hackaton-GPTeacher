@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\Curriculum\CurriculumDetail;
 use App\Http\Livewire\Curriculum\CurriculumForm;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Example\ExampleForm;
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
 
     Route::group(['prefix' => 'curriculum' , 'as' => 'curriculum.'], function () {
         Route::get('/create', CurriculumForm::class)->name('create');
+        Route::get('/{id}/show', CurriculumDetail::class)->name('show');
     });
 
     Route::group(['prefix' => 'question' , 'as' => 'question.'], function () {

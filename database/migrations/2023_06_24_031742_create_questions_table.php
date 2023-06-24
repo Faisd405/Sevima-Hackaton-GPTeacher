@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('prompt');
             $table->longText('response');
+            $table->string('language')->default('english');
 
             $table->timestamps();
 
