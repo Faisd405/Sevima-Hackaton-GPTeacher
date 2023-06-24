@@ -17,7 +17,7 @@
             </div>
 
             <div class="pt-2 mt-4 border-t">
-                <div>
+                <div class="flex items-center sm:block">
                     <button class="flex items-center btn-primary-custom" wire:click='favoriteCurriculum'>
                         @if (!$isFavorite)
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -34,9 +34,9 @@
                             </svg>
                         @endif
 
-                        <span class="ml-2">Favorite</span>
+                        <span class="hidden ml-2 sm:block">Favorite</span>
                     </button>
-                    <span>
+                    <span class="text-sm">
                         {{ $curriculum['favorite_count'] }} Favorites
                     </span>
                 </div>
@@ -52,8 +52,11 @@
                 Curriculum Detail
             </h4>
 
-            <div class="grid grid-cols-4 mt-2">
-                <div class="border-r border-r-black">
+            <details class="border-b collapse md:hidden">
+                <summary class="text-lg font-medium text-center collapse-title hover:bg-slate-200 dark:hover:bg-gray-700">
+                    {{ 'Select Curriculum Detail' }}
+                </summary>
+                <div class="collapse-content">
                     @foreach ($curriculum['curriculum_details'] as $curriculumDetail)
                         <div class="flex justify-between px-8 py-2 border-b cursor-pointer group hover:bg-slate-200 dark:hover:bg-gray-700"
                             wire:click="getCurriculumDetailProperty({{ $curriculumDetail['id'] }})">
@@ -63,7 +66,20 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="col-span-3">
+            </details>
+
+            <div class="grid grid-cols-4 mt-2">
+                <div class="hidden border-r md:block border-r-black">
+                    @foreach ($curriculum['curriculum_details'] as $curriculumDetail)
+                        <div class="flex justify-between px-8 py-2 border-b cursor-pointer group hover:bg-slate-200 dark:hover:bg-gray-700"
+                            wire:click="getCurriculumDetailProperty({{ $curriculumDetail['id'] }})">
+                            <div class="group-hover:font-semibold">
+                                {{ $curriculumDetail['title'] }}
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="col-span-4 md:col-span-3">
                     <div class="px-4 py-2">
                         @if ($curriculumDetailData)
                             <div class="flex items-center justify-between pb-2 border-b ">

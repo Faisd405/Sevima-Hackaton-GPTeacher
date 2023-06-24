@@ -8,6 +8,15 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
+    public $totalQuestion;
+    public $totalCurriculum;
+
+    public function mount()
+    {
+        $this->totalQuestion = Question::where('user_id', auth()->id())->count();
+        $this->totalCurriculum = Curriculum::where('user_id', auth()->id())->count();
+    }
+
     public function render()
     {
         $data['questions'] = $this->getQuestion();
