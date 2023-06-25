@@ -24,6 +24,4 @@ npm run dev
 
 now you already running the program.
 
-PPTX: 
-
 Web Hosting: https://gpteacher.faisaldev.cloud/

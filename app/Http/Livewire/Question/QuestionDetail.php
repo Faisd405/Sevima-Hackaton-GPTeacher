@@ -17,6 +17,8 @@ class QuestionDetail extends Component
 
     public $isFavorite = false;
 
+    public $comment;
+
     public function mount($id)
     {
         $this->questionId = $id;
@@ -35,7 +37,7 @@ class QuestionDetail extends Component
 
     public function getQuestionProperty($id)
     {
-        $question = Question::withCount('favorite')->find($id);
+        $question = Question::withCount('favorite')->with('comment.user.profile')->find($id);
 
         if ($question == null) {
             session()->flash('error', 'Question not found.');
@@ -102,5 +104,24 @@ class QuestionDetail extends Component
         }
 
         return false;
+    }
+
+    public function commentQuestion()
+    {
+        $question = Question::find($this->questionId);
+
+        $question->comment()->create([
+            'user_id' => auth()->user()->id,
+            'comment' => $this->comment,
+        ]);
+
+        $this->comment = '';
+
+        $this->question = $this->getQuestionProperty($this->questionId);
+
+        $this->dispatchBrowserEvent('toaster', [
+            'type' => 'success',
+            'message' => 'Comment added successfully.',
+        ]);
     }
 }

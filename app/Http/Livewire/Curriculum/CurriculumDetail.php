@@ -15,6 +15,8 @@ class CurriculumDetail extends Component
     public $curriculumId;
     public $curriculumDetailData;
 
+    public $comment;
+
     public $configCurriculum = [
         'status' => 'private',
     ];
@@ -40,7 +42,8 @@ class CurriculumDetail extends Component
 
     public function getCurriculumProperty($id)
     {
-        $curriculum = Curriculum::with('curriculumDetails')->withCount('favorite')->find($id);
+        $curriculum = Curriculum::with('curriculumDetails', 'comment.user.profile')
+            ->withCount('favorite')->find($id);
 
         if ($curriculum == null) {
             session()->flash('error', 'Curriculum not found.');
@@ -118,5 +121,24 @@ class CurriculumDetail extends Component
         }
 
         return false;
+    }
+
+    public function commentCurriculum()
+    {
+        $curriculum = Curriculum::find($this->curriculumId);
+
+        $curriculum->comment()->create([
+            'user_id' => auth()->user()->id,
+            'comment' => $this->comment,
+        ]);
+
+        $this->comment = null;
+
+        $this->curriculum = $this->getCurriculumProperty($this->curriculumId);
+
+        $this->dispatchBrowserEvent('toaster', [
+            'type' => 'success',
+            'message' => 'Comment added successfully.',
+        ]);
     }
 }

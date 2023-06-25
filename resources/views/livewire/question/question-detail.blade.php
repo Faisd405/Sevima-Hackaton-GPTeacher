@@ -48,32 +48,70 @@
     </div>
 
     {{-- Comment --}}
-    {{-- <div class="p-4 mt-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg text-slate-800 dark:text-slate-200">
-        <div class="chat chat-start">
-            <div class="chat-image avatar">
-                <div class="w-10 rounded-full">
-                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-            </div>
-            <div class="chat-header">
-                Obi-Wan Kenobi
-                <time class="text-xs opacity-50">12:45</time>
-            </div>
-            <div class="chat-bubble">You were the Chosen One!</div>
+    <div class="p-4 mt-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg text-slate-800 dark:text-slate-200">
+        <div>
+            <h4 class="pb-2 text-xl font-extrabold border-b">
+                Comments
+            </h4>
         </div>
-        <div class="chat chat-end">
-            <div class="chat-image avatar">
-                <div class="w-10 rounded-full">
-                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-                </div>
-            </div>
-            <div class="chat-header">
-                Anakin
-                <time class="text-xs opacity-50">12:46</time>
-            </div>
-            <div class="chat-bubble">I hate you!</div>
+
+        <div>
+            @foreach ($question['comment'] as $comment)
+                @if ($comment['user_id'] == auth()->user()->id)
+                    <div class="chat chat-start">
+                        <div class="chat-image avatar">
+                            <div class="w-10 rounded-full">
+                                <img src="{{ $comment['user']['profile']['image_path'] ?? asset('assets/images/default_avatar.jpg') }}" />
+                            </div>
+                        </div>
+                        <div class="chat-header">
+                            {{ $comment['user']['name'] }}
+                            <time class="text-xs opacity-50">
+                                {{ Carbon\Carbon::parse($comment['created_at'])->diffForHumans() }}
+                            </time>
+                        </div>
+                        <div class="bg-blue-500 chat-bubble dark:bg-blue-800 text-slate-50">
+                            {{ $comment['comment'] }}
+                        </div>
+                    </div>
+                @else
+                    <div class="chat chat-end">
+                        <div class="chat-image avatar">
+                            <div class="w-10 rounded-full">
+                                <img src="{{ $comment['user']['profile']['image_path'] ?? asset('assets/images/default_avatar.jpg') }}" />
+                            </div>
+                        </div>
+                        <div class="chat-header">
+                            {{ $comment['user']['name'] }}
+                            <time class="text-xs opacity-50">
+                                {{ Carbon\Carbon::parse($comment['created_at'])->diffForHumans() }}
+                            </time>
+                        </div>
+                        <div class="chat-bubble">
+                            {{ $comment['comment'] }}
+                        </div>
+                    </div>
+                @endif
+            @endforeach
         </div>
-    </div> --}}
+
+        <div class="pt-4 mx-auto mt-4 border-t">
+            <form wire:submit.prevent='commentQuestion'>
+                <div class="w-full">
+                    <x-input.input-label class="text-sm font-extrabold" for="comment" value="Message" />
+                    <x-input.textarea-input id="comment" name="comment" wire:model.lazy='comment' type="text"
+                        x-bind:disabled="loading" required class="block w-full mt-1" />
+                    <x-input.input-error :messages="$errors->get('comment')" class="mt-2" />
+                </div>
+
+                <div class="flex items-center justify-end gap-4 mt-4">
+                    <x-button.primary-button>
+                        Send
+                    </x-button.primary-button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     {{-- Configuration --}}
     @if ($question['user_id'] == auth()->user()->id)
