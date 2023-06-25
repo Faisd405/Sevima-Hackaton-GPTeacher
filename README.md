@@ -1,5 +1,5 @@
 # Sevima Hackaton - GPTeacher
-**GPTeacher** it's an application for you guys who don't have a teacher to learning
+**GPTeacher** is an app for those of you who don't have a teacher to study with.
 
 ### How To Install
 
