@@ -93,18 +93,17 @@
                                     {{ $curriculumDetailData['title'] }}
                                 </h4>
                             </div>
-                            <div class="mt-2">
+                            <article class="mt-2 prose prose-headings:text-slate-800 text-slate-800 dark:text-slate-50">
                                 @if ($curriculumDetailData['content'])
                                     {!! $curriculumDetailData['content'] !!}
                                 @else
                                     <div class="flex justify-center p-4">
                                         <div class="flex justify-center max-w-full py-4">
-                                            <span x-show="loading"
-                                                class="flex justify-center loading loading-spinner loading-lg"></span>
+                                            <span class="flex justify-center loading loading-spinner loading-lg"></span>
                                         </div>
                                     </div>
                                 @endif
-                            </div>
+                            </article>
                         @else
                             <div class="flex justify-center p-4">
                                 No curriculum detail selected.
@@ -130,7 +129,8 @@
                     <div class="chat chat-start">
                         <div class="chat-image avatar">
                             <div class="w-10 rounded-full">
-                                <img src="{{ $comment['user']['profile']['image_path'] ?? asset('assets/images/default_avatar.jpg') }}" />
+                                <img
+                                    src="{{ $comment['user']['profile']['image_path'] ?? asset('assets/images/default_avatar.jpg') }}" />
                             </div>
                         </div>
                         <div class="chat-header">
@@ -147,7 +147,8 @@
                     <div class="chat chat-end">
                         <div class="chat-image avatar">
                             <div class="w-10 rounded-full">
-                                <img src="{{ $comment['user']['profile']['image_path'] ?? asset('assets/images/default_avatar.jpg') }}" />
+                                <img
+                                    src="{{ $comment['user']['profile']['image_path'] ?? asset('assets/images/default_avatar.jpg') }}" />
                             </div>
                         </div>
                         <div class="chat-header">
@@ -168,8 +169,7 @@
             <form wire:submit.prevent='commentCurriculum'>
                 <div class="w-full">
                     <x-input.input-label class="text-sm font-extrabold" for="comment" value="Message" />
-                    <x-input.textarea-input id="comment" name="comment" wire:model.lazy='comment' type="text"
-                        x-bind:disabled="loading" required class="block w-full mt-1" />
+                    <x-input.textarea-input id="comment" name="comment" wire:model.lazy='comment' type="text" required class="block w-full mt-1" />
                     <x-input.input-error :messages="$errors->get('comment')" class="mt-2" />
                 </div>
 

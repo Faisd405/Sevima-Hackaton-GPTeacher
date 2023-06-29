@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\CurriculumDetail;
+use App\Traits\SanitizeString;
 use App\Traits\WithOpenAPI;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
@@ -14,7 +15,9 @@ use Illuminate\Queue\SerializesModels;
 
 class GenerateCurriculumContent implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, WithOpenAPI, Batchable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Batchable;
+
+    use SanitizeString, WithOpenAPI;
 
     public $curriculumDetail;
 
@@ -31,9 +34,11 @@ class GenerateCurriculumContent implements ShouldQueue
      */
     public function handle(): void
     {
-        $prompt = "explain about {$this->curriculumDetail->title} with {$this->curriculumDetail->language} language. give a example and explain it.";
+        $prompt = "explain {$this->curriculumDetail->title} in the {$this->curriculumDetail->language} language. give an example and explain it. make the text into markdown format.";
 
         $openApi = $this->generatePromptOpenAPI($prompt);
+
+        $openApi = $this->SanitizeString($openApi);
 
         $this->curriculumDetail->content = $openApi;
 

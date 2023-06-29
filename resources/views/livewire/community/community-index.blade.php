@@ -102,7 +102,7 @@
                                 </p>
                                 <p class="flex items-end justify-between mt-4 text-xs font-semibold">
                                     <span class="text-xs font-semibold">
-                                        {{ $curriculum->favorite_count ?? 0 }} Favorites
+                                        {{ $question->favorite_count ?? 0 }} Favorites
                                     </span>
                                     <span class="text-xs font-semibold">
                                         {{ $question->user->name }} - {{ $question->created_at->diffForHumans() }}

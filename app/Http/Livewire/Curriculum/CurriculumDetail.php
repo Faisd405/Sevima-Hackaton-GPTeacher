@@ -4,13 +4,15 @@ namespace App\Http\Livewire\Curriculum;
 
 use App\Models\Curriculum;
 use App\Models\CurriculumDetail as ModelsCurriculumDetail;
+use App\Traits\SanitizeString;
 use App\Traits\WithOpenAPI;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class CurriculumDetail extends Component
 {
-    use WithOpenAPI;
+    use WithOpenAPI, SanitizeString;
 
     public $curriculumId;
     public $curriculumDetailData;
@@ -67,6 +69,7 @@ class CurriculumDetail extends Component
         $curriculumDetail = ModelsCurriculumDetail::find($id);
 
         $this->curriculumDetailData = $curriculumDetail;
+        $this->curriculumDetailData['content'] = $this->SanitizeString($curriculumDetail->content);
 
         return $curriculumDetail;
     }

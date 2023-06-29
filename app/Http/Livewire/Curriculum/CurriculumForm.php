@@ -45,8 +45,8 @@ class CurriculumForm extends Component
         $language = $this->language ?? 'english';
 
         $prompt = "provide curriculum about {$this->prompt} and materials in each curriculum
-        with a description about {$this->prompt} and list structure just numbers and title without content.
-        explain with {$language} language.
+        with a description of {$this->prompt} and list structure just numbers and titles without content.
+        explain in {$language} language.
         example:
         description: curriculum description \n
         1. curriculum 1 \n
