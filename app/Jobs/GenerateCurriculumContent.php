@@ -34,7 +34,7 @@ class GenerateCurriculumContent implements ShouldQueue
      */
     public function handle(): void
     {
-        $prompt = "explain {$this->curriculumDetail->title} in the {$this->curriculumDetail->language} language. give an example and explain it. make the text into markdown format.";
+        $prompt = "explain {$this->curriculumDetail->title} in the {$this->curriculumDetail->language} language. give an example and explain it.";
 
         $openApi = $this->generatePromptOpenAPI($prompt);
 
